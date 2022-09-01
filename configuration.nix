@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
@@ -13,7 +9,7 @@ let
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./musnix
     ];
@@ -26,18 +22,22 @@ in
       };
     };
   };
+  
+  musnix = {
+    enable = true;
+    kernel.realtime = true;
+    kernel.packages = pkgs.linuxPackages_latest_rt;
+    rtirq.enable = true;
+    rtirq.nameList = "xhci";
+    rtirq.prioLow = 60;
+  };
 
-  musnix.enable = true;
-  musnix.kernel.realtime = true;
-  musnix.kernel.packages = pkgs.linuxPackages_latest_rt;
-  musnix.rtirq.enable = true;
-  musnix.rtirq.nameList = "xhci";
-  musnix.rtirq.prioLow = 60;
-
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.timeout = 1;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader = {
+    grub.enable = true;
+    grub.version = 2;
+    grub.device = "/dev/sda";
+    timeout = 1;
+  };
 
   boot.kernelParams = [ "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" "tsx_async_abort=off" "mitigations=off" "processor.max_cstate=1" "intel_idle.max_cstate=0" ];
   # boot.kernelParams = [ "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" "tsx_async_abort=off" "mitigations=off" ];
@@ -45,111 +45,62 @@ in
   networking.hostName = "ogfx86"; 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
-  networking.interfaces.enp2s0.useDHCP = true;
-  networking.interfaces.enp4s0.useDHCP = true;
-  networking.interfaces.enp5s0.useDHCP = true;
-  networking.interfaces.wlo1.useDHCP = true;
-  networking.firewall.enable = false;
-  networking.wireguard.enable = true;
+  networking = {
+    useDHCP = false;
+    interfaces = { 
+      enp1s0.useDHCP = true;
+      enp2s0.useDHCP = true;
+      enp4s0.useDHCP = true;
+      enp5s0.useDHCP = true;
+      wlo1.useDHCP = true;
+    };
+    firewall.enable = false;
+    wireguard.enable = true;
+  };
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
-
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
   environment.systemPackages = with pkgs.unstable; [
-    vim
-    wget
-    htop
-    links2
-    git
-    tmux
+    vim wget htop links2 git tmux
+    schedtool usbutils psmisc
 
-    dmenu
-    arandr
-	
-    xfce.xfce4-terminal
-    firefox
+    dmenu arandr xfce.xfce4-terminal firefox
 
-    schedtool
-    usbutils
-    psmisc
+    swh_lv2 mda_lv2 ams-lv2 aether-lv2
+    gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
+    rkrlv2 distrho bshapr bchoppr tunefish
+    plujain-ramp mod-distortion x42-plugins
+    infamousPlugins mooSpace boops
+    eq10q talentedhack artyFX fverb
+    kapitonov-plugins-pack fomp molot-lite
+    zam-plugins lsp-plugins calf gxmatcheq-lv2
 
-    # jack2
-
-    jalv
-    lv2
-    lilv
-    ingen
-    carla
-    
-    guitarix
-    swh_lv2
-    mda_lv2
-    ams-lv2
-    aether-lv2
-    gxplugins-lv2
-    gxmatcheq-lv2
-    airwindows-lv2
-    rkrlv2
-    distrho
-    bshapr
-    bchoppr
-    tunefish
-    plujain-ramp
-    mod-distortion
-    x42-plugins
-    infamousPlugins
-    mooSpace
-    boops
-    eq10q
-    talentedhack
-    artyFX
-    fverb
-    kapitonov-plugins-pack
-    fomp
-    molot-lite
-    zam-plugins
-    lsp-plugins
-    
-    calf
-    gxmatcheq-lv2
-
-    plugin-torture
-    ogfx-tools
-    ogfx-ui
+    jalv lv2 lilv ingen carla guitarix plugin-torture
+    ogfx-tools ogfx-ui
   ];
 
-
   sound.enable = true;
-  # hardware.pulseaudio.enable = true;
 
-  services.openssh.enable = true;
+  services = {
+    openssh.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+    xserver = {
+      enable = true;
+      layout = "us";
+      xkbOptions = "eurosign:e";
 
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+      displayManager.sddm.enable = true;
+      windowManager.i3.enable = true;
+    };
 
-  services.avahi.enable = true;
-  services.cron.enable = true;
+    avahi.enable = true;
+    cron.enable = true;
 
-  services.jack.jackd = {
-    enable = true;
-    extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+    jack.jackd = {
+      enable = true;
+      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+    };
   };
 
   systemd.services = {
