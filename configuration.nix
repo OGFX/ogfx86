@@ -5,8 +5,11 @@
 { config, pkgs, ... }:
 
 let
-    ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
-    ogfx-ui = (pkgs.python36Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
+  ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
+  ogfx-ui = (pkgs.python36Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
 in
 {
   imports =
@@ -15,6 +18,14 @@ in
       ./musnix
     ];
 
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
 
   musnix.enable = true;
   musnix.kernel.realtime = true;
@@ -56,7 +67,7 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     vim
     wget
     htop
@@ -79,19 +90,42 @@ in
     jalv
     lv2
     lilv
+    ingen
+    carla
     
     guitarix
-    gxplugins-lv2
     swh_lv2
-    calf
     mda_lv2
-    rkrlv2
-    mod-distortion
+    ams-lv2
+    aether-lv2
+    gxplugins-lv2
     gxmatcheq-lv2
-    zam-plugins
-    fomp
+    airwindows-lv2
+    rkrlv2
+    distrho
+    bshapr
+    bchoppr
+    tunefish
+    plujain-ramp
+    mod-distortion
+    x42-plugins
     infamousPlugins
+    mooSpace
+    boops
+    eq10q
+    talentedhack
+    artyFX
+    fverb
+    kapitonov-plugins-pack
+    fomp
+    molot-lite
+    zam-plugins
+    lsp-plugins
+    
+    calf
+    gxmatcheq-lv2
 
+    plugin-torture
     ogfx-tools
     ogfx-ui
   ];
