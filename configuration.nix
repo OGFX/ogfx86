@@ -2,10 +2,7 @@
 
 let
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
-  ogfx-ui = (pkgs.python36Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
-  unstableTarball =
-    fetchTarball
-      https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
+  ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
 in
 {
   imports =
@@ -14,19 +11,11 @@ in
       ./musnix
     ];
 
-
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      unstable = import unstableTarball {
-        config = config.nixpkgs.config;
-      };
-    };
-  };
-  
   musnix = {
     enable = true;
+    kernel.optimize = true;
     kernel.realtime = true;
-    kernel.packages = pkgs.linuxPackages_latest_rt;
+    # kernel.packages = pkgs.linuxPackages_latest_rt;
     rtirq.enable = true;
     rtirq.nameList = "xhci";
     rtirq.prioLow = 60;
@@ -39,8 +28,12 @@ in
     timeout = 1;
   };
 
-  boot.kernelParams = [ "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" "tsx_async_abort=off" "mitigations=off" "processor.max_cstate=1" "intel_idle.max_cstate=0" ];
-  # boot.kernelParams = [ "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" "tsx_async_abort=off" "mitigations=off" ];
+  boot.kernelParams = [ 
+    "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" 
+    "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" 
+    "tsx_async_abort=off" "mitigations=off" "processor.max_cstate=1" 
+    "intel_idle.max_cstate=0" 
+  ];
 
   networking.hostName = "ogfx86"; 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -61,12 +54,15 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Europe/Berlin";
 
-  environment.systemPackages = with pkgs.unstable; [
+  environment.systemPackages = with pkgs; [
     vim wget htop links2 git tmux
     schedtool usbutils psmisc
 
     dmenu arandr xfce.xfce4-terminal firefox
 
+    jalv lv2 lilv ingen carla guitarix plugin-torture
+    ogfx-ui 
+  ] ++ [
     swh_lv2 mda_lv2 ams-lv2 aether-lv2
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
     rkrlv2 distrho bshapr bchoppr tunefish
@@ -75,9 +71,6 @@ in
     eq10q talentedhack artyFX fverb
     kapitonov-plugins-pack fomp molot-lite
     zam-plugins lsp-plugins calf gxmatcheq-lv2
-
-    jalv lv2 lilv ingen carla guitarix plugin-torture
-    ogfx-tools ogfx-ui
   ];
 
   sound.enable = true;
@@ -108,6 +101,7 @@ in
       enable = true;
       description = "The OGFX web frontend";
       wantedBy = [ "jack.service" ];
+      wants = [ "jack.service" ];
       serviceConfig = {
         Type = "exec";
         User = "ogfx";
@@ -123,13 +117,13 @@ in
 
   users.users.fps = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "jackaudio" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" "jackaudio" ]; 
   };
 
   users.users.ogfx = {
     isNormalUser = true;
-    extraGroups = [ "audio" "jackaudio" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "jackaudio" ]; 
   };
-  system.stateVersion = "20.03"; # Did you read the comment?
 
+  system.stateVersion = "20.03"; 
 }

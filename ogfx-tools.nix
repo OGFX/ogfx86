@@ -1,4 +1,4 @@
-{ stdenv, pkgs }:
+{ lib, stdenv, pkgs }:
 
 stdenv.mkDerivation rec {
   pname = "ogfx-tools";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs =  with pkgs; [ jack2 boost pkg-config lilv lv2 serd sord sratom ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "";
     longDescription = ''
     '';

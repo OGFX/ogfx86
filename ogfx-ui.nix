@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, pkgs, ogfx-tools, bottle, bash }:
+{ lib, stdenv, buildPythonPackage, pkgs, ogfx-tools, bottle, bash }:
 
 buildPythonPackage rec {
   pname = "ogfx-ui";
