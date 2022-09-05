@@ -3,6 +3,8 @@
 let
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
   ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
+  state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
+  clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
 in
 {
   imports =
@@ -57,11 +59,13 @@ in
   environment.systemPackages = with pkgs; [
     vim wget htop links2 git tmux
     schedtool usbutils psmisc
+    lm_sensors
 
     dmenu arandr xfce.xfce4-terminal firefox
 
     jalv lv2 lilv ingen carla guitarix plugin-torture
-    ogfx-ui 
+  ] ++ [
+    ogfx-ui state-variable-filter-lv2 clipping-lv2
   ] ++ [
     swh_lv2 mda_lv2 ams-lv2 aether-lv2
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
@@ -100,7 +104,7 @@ in
     ogfx-frontend = {
       enable = true;
       description = "The OGFX web frontend";
-      wantedBy = [ "jack.service" ];
+      # wantedBy = [ "jack.service" ];
       wants = [ "jack.service" ];
       serviceConfig = {
         Type = "exec";
