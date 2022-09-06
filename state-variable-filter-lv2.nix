@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  makeFlags = [ "PREFIX=$(out)/lib/lv2" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   buildInputs =  with pkgs; [ lv2 ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];

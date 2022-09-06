@@ -30,6 +30,8 @@ in
     timeout = 1;
   };
 
+  boot.kernelModules = [ "coretemp" ];
+
   boot.kernelParams = [ 
     "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" 
     "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" 
@@ -62,7 +64,8 @@ in
     lm_sensors
 
     dmenu arandr xfce.xfce4-terminal firefox
-
+    man-pages man-pages-posix
+  ] ++ [
     jalv lv2 lilv ingen carla guitarix plugin-torture
   ] ++ [
     ogfx-ui state-variable-filter-lv2 clipping-lv2
