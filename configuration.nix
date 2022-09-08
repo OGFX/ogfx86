@@ -107,7 +107,7 @@ in
     ogfx-frontend = {
       enable = true;
       description = "The OGFX web frontend";
-      # wantedBy = [ "jack.service" ];
+      wantedBy = [ "jack.service" ];
       wants = [ "jack.service" ];
       serviceConfig = {
         Type = "exec";
