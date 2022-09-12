@@ -12,7 +12,15 @@ let
   #     system = "x86_64-linux";
   #   };
   # };
-  optimized_pkgs = pkgs;
+  # optimized_pkgs = pkgs;
+  # native_pkgs = import <nixpkgs> {
+  #   overlays = [
+  #     (self: super: {
+  #       # stdenv = super.impureUseNativeOptimizations super.stdenv;
+  #       swh_lv2 = super.swh_lv2.override { stdenv = super.impureUseNativeOptimizations; }; 
+  #     })
+  #   ];
+  # };
 in
 {
   imports =
@@ -21,13 +29,20 @@ in
       ./musnix
     ];
 
-  nix.settings.system-features = [ "big-parallel" "nixos-test" "kvm" "benchmark" "gccarch-westmere" ];
+  # nix.settings.system-features = [ "big-parallel" "nixos-test" "kvm" "benchmark" "gccarch-westmere" ];
 
-  nixpkgs.localSystem = {
-    gcc.arch = "westmere";
-    gcc.tune = "westmere";
-    system = "x86_64-linux";
-  };
+  # nixpkgs.localSystem = {
+  #   gcc.arch = "westmere";
+  #   gcc.tune = "westmere";
+  #   system = "x86_64-linux";
+  # };
+
+  nixpkgs.overlays = [
+    (self: super: {
+       swh_lv2 = super.swh_lv2.override { stdenv = super.impureUseNativeOptimizations super.stdenv; }; 
+       mda_lv2 = super.mda_lv2.override { stdenv = super.impureUseNativeOptimizations super.stdenv; }; 
+    })
+  ];
 
   musnix = {
     enable = true;
@@ -82,9 +97,9 @@ in
   
       dmenu arandr xfce.xfce4-terminal firefox
       man-pages man-pages-posix
-    ]) 
-    ++ 
-    (with optimized_pkgs; [
+    ] 
+    ++
+    [ 
       jalv lv2 lilv ingen carla guitarix plugin-torture
     ] 
     ++ 
@@ -92,8 +107,8 @@ in
       ogfx-ui state-variable-filter-lv2 clipping-lv2
     ] 
     ++ 
-    [
-      swh_lv2 mda_lv2 ams-lv2 aether-lv2
+    (lib.lists.forEach [
+      mda_lv2 swh_lv2 ams-lv2 aether-lv2
       gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
       rkrlv2 distrho bshapr bchoppr tunefish
       plujain-ramp mod-distortion x42-plugins
@@ -101,7 +116,7 @@ in
       eq10q talentedhack artyFX fverb
       kapitonov-plugins-pack fomp molot-lite
       zam-plugins lsp-plugins calf gxmatcheq-lv2
-    ]);
+    ] (x: x.override { stdenv = impureUseNativeOptimizations stdenv;} )));
   
   sound.enable = true;
 
