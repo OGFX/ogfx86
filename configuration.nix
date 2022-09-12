@@ -1,26 +1,11 @@
 { config, pkgs, ... }:
 
 let
+  make-native = (x: x.override { stdenv = pkgs.impureUseNativeOptimizations pkgs.stdenv;} );
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
   ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
   state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
   clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
-  # optimized_pkgs = import <nixpkgs> {
-  #   localSystem = {
-  #     gcc.arch = "westmere";
-  #     gcc.tune = "westmere";
-  #     system = "x86_64-linux";
-  #   };
-  # };
-  # optimized_pkgs = pkgs;
-  # native_pkgs = import <nixpkgs> {
-  #   overlays = [
-  #     (self: super: {
-  #       # stdenv = super.impureUseNativeOptimizations super.stdenv;
-  #       swh_lv2 = super.swh_lv2.override { stdenv = super.impureUseNativeOptimizations; }; 
-  #     })
-  #   ];
-  # };
 in
 {
   imports =
@@ -28,21 +13,6 @@ in
       ./hardware-configuration.nix
       ./musnix
     ];
-
-  # nix.settings.system-features = [ "big-parallel" "nixos-test" "kvm" "benchmark" "gccarch-westmere" ];
-
-  # nixpkgs.localSystem = {
-  #   gcc.arch = "westmere";
-  #   gcc.tune = "westmere";
-  #   system = "x86_64-linux";
-  # };
-
-  nixpkgs.overlays = [
-    (self: super: {
-       swh_lv2 = super.swh_lv2.override { stdenv = super.impureUseNativeOptimizations super.stdenv; }; 
-       mda_lv2 = super.mda_lv2.override { stdenv = super.impureUseNativeOptimizations super.stdenv; }; 
-    })
-  ];
 
   musnix = {
     enable = true;
@@ -99,18 +69,17 @@ in
       man-pages man-pages-posix
     ] 
     ++
-    [ 
-      jalv lv2 lilv ingen carla guitarix plugin-torture
-    ] 
-    ++ 
-    [
-      ogfx-ui state-variable-filter-lv2 clipping-lv2
+    [  
+      tunefish
     ] 
     ++ 
     (lib.lists.forEach [
+      jalv lv2 lilv ingen carla guitarix plugin-torture
+      ogfx-ui state-variable-filter-lv2 clipping-lv2
+
       mda_lv2 swh_lv2 ams-lv2 aether-lv2
       gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
-      rkrlv2 distrho bshapr bchoppr tunefish
+      rkrlv2 distrho bshapr bchoppr
       plujain-ramp mod-distortion x42-plugins
       infamousPlugins mooSpace boops
       eq10q talentedhack artyFX fverb
@@ -138,6 +107,7 @@ in
     jack.jackd = {
       enable = true;
       extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+      package = (make-native pkgs.jack2);
     };
   };
 
