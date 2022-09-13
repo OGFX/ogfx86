@@ -9,6 +9,7 @@ let
   state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
   clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
   mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
+  mod-host = (pkgs.callPackage ./mod-host.nix {});
 in
 {
   imports =
@@ -79,7 +80,7 @@ in
     ] 
     ++ 
     (lib.lists.forEach [
-      jalv lv2 lilv plugin-torture
+      jalv mod-host lv2 lilv plugin-torture
       ogfx-ui state-variable-filter-lv2 clipping-lv2
 
       mda_lv2 swh_lv2 aether-lv2
