@@ -1,11 +1,14 @@
 { config, pkgs, ... }:
 
 let
-  make-native = (x: x.override { stdenv = pkgs.impureUseNativeOptimizations pkgs.stdenv;} );
+  # make-native = (x: x.override { stdenv = pkgs.impureUseNativeOptimizations pkgs.stdenv;} );
+  # make-native = (x: x.override { stdenv = pkgs.withCFlags "-march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
+  make-native = (x: x);
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
   ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
   state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
   clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
+  mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
 in
 {
   imports =
@@ -70,14 +73,16 @@ in
     ] 
     ++
     [  
-      tunefish
+      tunefish ingen carla guitarix 
+
+      ams-lv2 
     ] 
     ++ 
     (lib.lists.forEach [
-      jalv lv2 lilv ingen carla guitarix plugin-torture
+      jalv lv2 lilv plugin-torture
       ogfx-ui state-variable-filter-lv2 clipping-lv2
 
-      mda_lv2 swh_lv2 ams-lv2 aether-lv2
+      mda_lv2 swh_lv2 aether-lv2
       gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
       rkrlv2 distrho bshapr bchoppr
       plujain-ramp mod-distortion x42-plugins
@@ -85,7 +90,8 @@ in
       eq10q talentedhack artyFX fverb
       kapitonov-plugins-pack fomp molot-lite
       zam-plugins lsp-plugins calf gxmatcheq-lv2
-    ] (x: x.override { stdenv = impureUseNativeOptimizations stdenv;} )));
+      mod-utilities
+    ] make-native));
   
   sound.enable = true;
 
