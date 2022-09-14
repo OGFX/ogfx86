@@ -1,20 +1,14 @@
 { config, pkgs, ... }:
 
-let
-  mod-host = (pkgs.callPackage ./mod-host.nix {});
-  mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
-  ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
-  ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; mod-host = mod-host; mod-utilities = mod-utilities; });
-  state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
-  clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
-in
 {
   imports =
     [
       ./hardware-configuration.nix
       ./musnix
       ./boot-kernel-params.nix
-      ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; ogfx-tools = ogfx-tools; mod-utilities = mod-utilities; }; }
+      ./ogfx-packages.nix
+      ./ogfx-frontend-service.nix {}
+      # ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = pkgs.ogfx-ui; ogfx-tools = pkgs.ogfx-tools; mod-utilities = pkgs.mod-utilities; }; }
       ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; period_size = "64"; number_of_periods = "3"; }; }
     ];
 
