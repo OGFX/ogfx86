@@ -106,11 +106,11 @@ in
     avahi.enable = true;
     cron.enable = true;
 
-    jack.jackd = {
-      enable = true;
-      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
-      package = (make-native pkgs.jack2);
-    };
+  #   jack.jackd = {
+  #     enable = true;
+  #     extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+  #     package = (make-native pkgs.jack2);
+  #   };
   };
 
   users.users.fps = {
@@ -118,10 +118,10 @@ in
     extraGroups = [ "wheel" "audio" "jackaudio" ]; 
   };
 
-  users.users.ogfx = {
-    isNormalUser = true;
-    extraGroups = [ "audio" "jackaudio" ]; 
-  };
+  # users.users.ogfx = {
+  #   isNormalUser = true;
+  #   extraGroups = [ "audio" "jackaudio" ]; 
+  # };
 
   system.stateVersion = "20.03"; 
 }
