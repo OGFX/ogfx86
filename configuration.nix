@@ -57,26 +57,9 @@
   
       dmenu arandr xfce.xfce4-terminal firefox
       man-pages man-pages-posix
-    ] 
-    ++
-    [  
-      tunefish ingen carla guitarix 
 
-      ams-lv2 
-    ] 
-    ++ 
-    [
-      jalv lv2 lilv plugin-torture
-      state-variable-filter-lv2 clipping-lv2
-
-      mda_lv2 swh_lv2 aether-lv2
-      gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
-      rkrlv2 distrho bshapr bchoppr
-      plujain-ramp mod-distortion x42-plugins
-      infamousPlugins mooSpace boops
-      eq10q talentedhack artyFX fverb
-      kapitonov-plugins-pack fomp molot-lite
-      zam-plugins lsp-plugins calf gxmatcheq-lv2
+      ingen carla guitarix 
+      jalv
     ]);
   
   sound.enable = true;

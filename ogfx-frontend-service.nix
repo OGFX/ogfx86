@@ -1,4 +1,4 @@
-# { config, lib, pkgs, ogfx-ui, ogfx-tools, mod-utilities, ... }:
+# { config, lib, pkgs, ... }:
 { config, lib, pkgs, ... }:
 {
   systemd.services = {
