@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  # make-native = (x: x.override { stdenv = pkgs.withCFlags "-march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
-  make-native = (x: x);
   mod-host = (pkgs.callPackage ./mod-host.nix {});
   mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
@@ -16,7 +14,7 @@ in
       ./hardware-configuration.nix
       ./musnix
       ./boot-kernel-params.nix
-      ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; }; }
+      ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; ogfx-tools = ogfx-tools; mod-utilities = mod-utilities; }; }
       ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; period_size = "64"; number_of_periods = "3"; }; }
     ];
 
@@ -74,9 +72,9 @@ in
       ams-lv2 
     ] 
     ++ 
-    (lib.lists.forEach [
-      jalv mod-host lv2 lilv plugin-torture
-      ogfx-ui state-variable-filter-lv2 clipping-lv2
+    [
+      jalv lv2 lilv plugin-torture
+      state-variable-filter-lv2 clipping-lv2
 
       mda_lv2 swh_lv2 aether-lv2
       gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
@@ -86,8 +84,7 @@ in
       eq10q talentedhack artyFX fverb
       kapitonov-plugins-pack fomp molot-lite
       zam-plugins lsp-plugins calf gxmatcheq-lv2
-      mod-utilities
-    ] make-native));
+    ]);
   
   sound.enable = true;
 
@@ -105,23 +102,12 @@ in
 
     avahi.enable = true;
     cron.enable = true;
-
-  #   jack.jackd = {
-  #     enable = true;
-  #     extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
-  #     package = (make-native pkgs.jack2);
-  #   };
   };
 
   users.users.fps = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "jackaudio" ]; 
   };
-
-  # users.users.ogfx = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "audio" "jackaudio" ]; 
-  # };
 
   system.stateVersion = "20.03"; 
 }

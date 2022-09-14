@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ogfx-ui, ... }:
+{ config, lib, pkgs, ogfx-ui, ogfx-tools, mod-utilities, ... }:
 {
   systemd.services = {
     ogfx-frontend = {
@@ -6,10 +6,11 @@
       description = "The OGFX web frontend";
       wantedBy = [ "jack.service" ];
       wants = [ "jack.service" ];
+      path = [ pkgs.jack2 ogfx-tools ];
       serviceConfig = {
         Type = "exec";
         User = "ogfx";
-        ExecStart = "${pkgs.bash}/bin/bash -l -c \"${pkgs.jack2}/bin/jack_wait -w; exec ${ogfx-ui}/bin/ogfx_frontend_server.py\"";
+        ExecStart = "${pkgs.bash}/bin/bash -l -c \"jack_wait -w; export LV2_PATH=${mod-utilities}/lib/lv2:$LV2_PATH; exec ${ogfx-ui}/bin/ogfx_frontend_server.py --log-level 5\"";
         LimitRTPRIO = 99;
         LimitMEMLOCK = "infinity";
         KillMode = "mixed";

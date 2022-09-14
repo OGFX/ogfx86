@@ -5,7 +5,7 @@ buildPythonPackage rec {
   version = "0.1";
 
   # If you have your sources locally, you can specify a path
-  src =  /home/fps/ogfx/ogfx-ui;
+  src = /home/fps/ogfx/ogfx-ui;
 
   # Pull source from a Git server. Optionally select a specific `ref` (e.g. branch),
   # or `rev` revision hash.
