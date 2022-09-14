@@ -16,7 +16,7 @@ in
     [
       ./hardware-configuration.nix
       ./musnix
-      ./ogfx-frontend-service.nix
+      ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; }; }
     ];
 
   musnix = {
