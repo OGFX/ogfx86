@@ -8,7 +8,6 @@
       ./boot-kernel-params.nix
       ./ogfx-packages.nix
       ./ogfx-frontend-service.nix {}
-      ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; period_size = "64"; number_of_periods = "3"; }; }
     ];
 
   musnix = {
@@ -78,6 +77,13 @@
 
     avahi.enable = true;
     cron.enable = true;
+  };
+
+  services = {
+    jack.jackd = {
+      enable = true;
+      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+    };
   };
 
   users.users.fps = {
