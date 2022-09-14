@@ -17,7 +17,7 @@ in
       ./musnix
       ./boot-kernel-params.nix
       ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; }; }
-      ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; }; }
+      ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; period_size = "64"; number_of_periods = "3"; }; }
     ];
 
   musnix = {

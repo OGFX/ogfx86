@@ -1,9 +1,9 @@
-{ config, pkgs, pcm_device, ...}:
+{ config, pkgs, pcm_device, period_size, number_of_periods, ...}:
 {
   services = {
     jack.jackd = {
       enable = true;
-      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" pcm_device ];
+      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" period_size "-n" number_of_periods "-d" pcm_device ];
     };
   };
 }
