@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  # make-native = (x: x.override { stdenv = pkgs.impureUseNativeOptimizations pkgs.stdenv;} );
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   make-native = (x: x);
   mod-host = (pkgs.callPackage ./mod-host.nix {});
@@ -18,6 +17,7 @@ in
       ./musnix
       ./boot-kernel-params.nix
       ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = ogfx-ui; }; }
+      ./jack-service.nix
     ];
 
   musnix = {
@@ -38,13 +38,6 @@ in
   };
 
   boot.kernelModules = [ "coretemp" ];
-
-  # boot.kernelParams = [ 
-  #   "noibrs" "noibpb" "nopti" "nospectre_v2" "nospectre_v1" "l1tf=off" 
-  #   "nospec_store_bypass_disable" "no_stf_barrier" "mds=off" "tsx=on" 
-  #   "tsx_async_abort=off" "mitigations=off" "processor.max_cstate=1" 
-  #   "intel_idle.max_cstate=0" 
-  # ];
 
   networking.hostName = "ogfx86"; 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -119,27 +112,6 @@ in
       package = (make-native pkgs.jack2);
     };
   };
-
-  
-
-  # systemd.services = {
-  #   ogfx-frontend = {
-  #     enable = true;
-  #     description = "The OGFX web frontend";
-  #     wantedBy = [ "jack.service" ];
-  #     wants = [ "jack.service" ];
-  #     serviceConfig = {
-  #       Type = "exec";
-  #       User = "ogfx";
-  #       ExecStart = "${pkgs.bash}/bin/bash -l -c \"${pkgs.jack2}/bin/jack_wait -w; exec ${ogfx-ui}/bin/ogfx_frontend_server.py\"";
-  #       LimitRTPRIO = 99;
-  #       LimitMEMLOCK = "infinity";
-  #       KillMode = "mixed";
-  #       KillSignal = "SIGINT";
-  #       TimeoutStopSec = 60;
-  #     };
-  #   };
-  # };
 
   users.users.fps = {
     isNormalUser = true;
