@@ -13,6 +13,8 @@
   )];
 
   environment.systemPackages = with pkgs; [
+      mod-host mod-utilities
+
       lilv lv2 plugin-torture
 
       state-variable-filter-lv2 clipping-lv2
