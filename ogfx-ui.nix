@@ -1,4 +1,4 @@
-{ lib, stdenv, buildPythonPackage, pkgs, ogfx-tools, bottle, bash }:
+{ lib, stdenv, buildPythonPackage, pkgs, ogfx-tools, bottle, bash, mod-host, mod-utilities }:
 
 buildPythonPackage rec {
   pname = "ogfx-ui";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # };
 
   # Specify runtime dependencies for the package
-  propagatedBuildInputs = [ bottle pkgs.jalv ogfx-tools ];
+  propagatedBuildInputs = [ bottle pkgs.jalv ogfx-tools mod-host mod-utilities ];
 
   doCheck = false;
 

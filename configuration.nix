@@ -4,12 +4,12 @@ let
   # make-native = (x: x.override { stdenv = pkgs.impureUseNativeOptimizations pkgs.stdenv;} );
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   make-native = (x: x);
+  mod-host = (pkgs.callPackage ./mod-host.nix {});
+  mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
   ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
-  ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; });
+  ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix { ogfx-tools = ogfx-tools; mod-host = mod-host; mod-utilities = mod-utilities; });
   state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
   clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
-  mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
-  mod-host = (pkgs.callPackage ./mod-host.nix {});
 in
 {
   imports =
