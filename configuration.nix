@@ -8,7 +8,6 @@
       ./boot-kernel-params.nix
       ./ogfx-packages.nix
       ./ogfx-frontend-service.nix {}
-      # ./ogfx-frontend-service.nix { _module.args = { ogfx-ui = pkgs.ogfx-ui; ogfx-tools = pkgs.ogfx-tools; mod-utilities = pkgs.mod-utilities; }; }
       ./jack-service.nix { _module.args = { pcm_device = "hw:iXR"; period_size = "64"; number_of_periods = "3"; }; }
     ];
 
