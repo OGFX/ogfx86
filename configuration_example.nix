@@ -5,8 +5,14 @@
     [
       ./hardware-configuration.nix
       ./musnix
+
+      # make-linux-fast-again.com:
       ./ogfx86/boot-kernel-params.nix
+
+      # add all required packages:
       ./ogfx86/ogfx-packages.nix
+
+      # and finally add the ogfx service:
       ./ogfx86/ogfx-frontend-service.nix {}
     ];
 
