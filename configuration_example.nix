@@ -5,9 +5,9 @@
     [
       ./hardware-configuration.nix
       ./musnix
-      ./boot-kernel-params.nix
-      ./ogfx-packages.nix
-      ./ogfx-frontend-service.nix {}
+      ./ogfx86/boot-kernel-params.nix
+      ./ogfx86/ogfx-packages.nix
+      ./ogfx86/ogfx-frontend-service.nix {}
     ];
 
   musnix = {
