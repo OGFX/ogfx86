@@ -22,7 +22,6 @@
     enable = true;
     kernel.optimize = true;
     kernel.realtime = true;
-    # kernel.packages = pkgs.linuxPackages_latest_rt;
  
     # do some irq tuning. adapt this to your particular system
     rtirq.enable = true;
@@ -31,7 +30,7 @@
   };
 
   # setup jack as a system service. this is required
-  # for ogfx. adapt the parameters to your need:
+  # for ogfx. adapt the parameters to your needs:
   services = {
     jack.jackd = {
       enable = true;
@@ -54,19 +53,11 @@
   boot.kernelModules = [ "coretemp" ];
 
   networking.hostName = "ogfx86"; 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking = {
     networkmanager.enable = true;
     interfaces.wlo1.ipv4.addresses = [ { address = "192.168.150.1"; prefixLength = 24; } ];
     useDHCP = false;
-  #   interfaces = { 
-  #     enp1s0.useDHCP = true;
-  #     enp2s0.useDHCP = true;
-  #     enp4s0.useDHCP = true;
-  #     enp5s0.useDHCP = true;
-  #     wlo1.useDHCP = true;
-  #   };
     firewall.enable = false;
     wireguard.enable = true;
 
@@ -127,6 +118,7 @@
       ssid = "ogfx86";
       wpaPassphrase = "omg it's fx";
     };
+
     openssh.enable = true;
 
     xserver = {
