@@ -8,10 +8,10 @@ stdenv.mkDerivation rec {
 
   src = pkgs.fetchFromGitHub {
     owner = "ogfx";
-    repo = "ogfx-tools";
+    repo = "mod-host";
     rev = "prefix";
     # rev = "468c09ae37370139bd79d509b854889a2a567833";
-    sha256 = "sha256-sdSTzOEHWtCrc9UFUU7z9ihgxs1rKTRK908vRX7WuME";
+    sha256 = "sha256-y4qdGK0+tzoGr2h0jURgpck2jR/KaX1t5HDvE7exc+c=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

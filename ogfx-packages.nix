@@ -1,16 +1,18 @@
 { lib, pkgs, config, ... }:
+let
+  make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
+in
 {
   nixpkgs.overlays = [
-    (self: super:
-    {
-      mod-host = (pkgs.callPackage ./mod-host.nix {});
+    (self: super: {
+      mod-host = make-native (pkgs.callPackage ./mod-host.nix {});
       mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
       ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
       ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});
       state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
-    }
-  )];
+    })
+  ];
 
   environment.systemPackages = with pkgs; [
       mod-host mod-utilities
@@ -28,4 +30,5 @@
       zam-plugins lsp-plugins calf gxmatcheq-lv2
       tunefish ams-lv2
   ];
+
 }
