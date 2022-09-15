@@ -16,15 +16,33 @@
       ./ogfx86/ogfx-frontend-service.nix {}
     ];
 
+  # you want to use a realtime kernel. 
+  # musnix is helpful here:
   musnix = {
     enable = true;
     kernel.optimize = true;
     kernel.realtime = true;
     # kernel.packages = pkgs.linuxPackages_latest_rt;
+ 
+    # do some irq tuning. adapt this to your particular system
     rtirq.enable = true;
     rtirq.nameList = "xhci";
     rtirq.prioLow = 60;
   };
+
+  # setup jack as a system service. this is required
+  # for ogfx. adapt the parameters to your need:
+  services = {
+    jack.jackd = {
+      enable = true;
+      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
+    };
+  };
+
+
+  # the rest of this file is just a vanilla
+  # nixos configuration. all ogfx-related changes 
+  # are above this point..
 
   boot.loader = {
     grub.enable = true;
@@ -83,13 +101,6 @@
 
     avahi.enable = true;
     cron.enable = true;
-  };
-
-  services = {
-    jack.jackd = {
-      enable = true;
-      extraOptions = [ "-S" "-R" "-P 80" "-d" "alsa" "-p" "64" "-n" "3" "-d" "hw:iXR" ];
-    };
   };
 
   users.users.fps = {
