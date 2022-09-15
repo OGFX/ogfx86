@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     repo = "ogfx-tools";
     rev = "master";
     # rev = "468c09ae37370139bd79d509b854889a2a567833";
-    sha256 = "sha256-Qag32iwYXPiYQZq+oO+CHtODJVK91qcZCIqy3flZSPY=";
+    sha256 = "sha256-5kTOTgzQ02n0VONk+bhIlLNzyP/BebtWhmtRyQFa+9Y=";
   };
 
   doCheck = true;

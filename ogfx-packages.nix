@@ -15,7 +15,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-      mod-host mod-utilities
+      mod-host mod-utilities ogfx-tools
 
       lilv lv2 plugin-torture
 
