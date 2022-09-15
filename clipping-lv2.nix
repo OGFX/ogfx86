@@ -1,18 +1,15 @@
-{ lib, stdenv, pkgs }:
+{ lib, stdenv, pkgs, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "clipping-lv2";
   version = "0.1";
 
-  src = /home/fps/ogfx/clipping.lv2;
+  # src = /home/fps/ogfx/clipping.lv2;
 
-  # src = pkgs.fetchFromGitHub {
-  #   owner = "ogfx";
-  #   repo = "ogfx-tools";
-  #   rev = "master";
-  #   # rev = "468c09ae37370139bd79d509b854889a2a567833";
-  #   sha256 = "09vxmrgx09ppbkkjalma65gz16giy8pmb0hl9sgf1qkmxpxfg0lw";
-  # };
+  src = pkgs.fetchgit {
+    url = https://github.com/fps/clipping.lv2;
+    sha256 = "sha256-e6l4AuKaD0Vf4uablNu6RAA8w+GLWdpvJI6TffMsEGk=";
+  };
 
   doCheck = true;
 
