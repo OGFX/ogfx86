@@ -19,6 +19,7 @@ in
 
       lilv lv2 plugin-torture
 
+	  guitarix 
       state-variable-filter-lv2 clipping-lv2
       mda_lv2 swh_lv2 aether-lv2
       gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
