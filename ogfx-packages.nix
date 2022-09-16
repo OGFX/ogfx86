@@ -2,7 +2,7 @@
 let
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   plugin_packages = with pkgs; [
-    guitarix mod-utilities 
+    guitarix mod-utilities mod-pitchshifter
     state-variable-filter-lv2 clipping-lv2
     mda_lv2 swh_lv2 aether-lv2
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
@@ -21,6 +21,7 @@ in
     (self: super: {
       mod-host = (pkgs.callPackage ./mod-host.nix {});
       mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
+      mod-pitchshifter = (pkgs.callPackage ./mod-pitchshifter.nix {});
       ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
       ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});
       state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
