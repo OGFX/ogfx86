@@ -2,7 +2,7 @@
 let
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   plugin_packages = with pkgs; [
-    guitarix 
+    guitarix mod-utilities 
     state-variable-filter-lv2 clipping-lv2
     mda_lv2 swh_lv2 aether-lv2
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
@@ -34,7 +34,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    mod-host mod-utilities ogfx-tools
+    mod-host ogfx-tools
     lilv lv2 plugin-torture lv2ls_cache
   ] ++ plugin_packages;
 }
