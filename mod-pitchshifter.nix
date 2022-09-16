@@ -14,12 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "0pwf8mca0cxcl5dkpl2ar10aq1fhbb59hazl9hqpq5w5srffr8l1";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
-
   doCheck = true;
 
   buildInputs =  with pkgs; [ pkg-config lv2 fftwFloat armadillo ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
+
+  patchPhase = ''
+    substituteInPlace Makefile.mk --replace /usr/local $out
+  '';
 
   meta = with lib; {
     description = "";
