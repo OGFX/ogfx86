@@ -37,15 +37,4 @@ in
     mod-host mod-utilities ogfx-tools
     lilv lv2 plugin-torture lv2ls_cache
   ] ++ plugin_packages;
-  
-  system.userActivationScripts = {
-    update_ogfx_lv2ls_cache = { 
-      text = ''
-        if [ $(whoami) == ogfx ]; then
-          ${pkgs.ogfx-tools}/bin/ogfx_lv2ls > $HOME/.ogfx_lv2ls_cache.txt
-        fi
-      '';
-      deps = [];
-    };
-  };
 }
