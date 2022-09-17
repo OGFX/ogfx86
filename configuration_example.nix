@@ -101,6 +101,7 @@
   services = {
     dnsmasq = {
       enable = true;
+      resolveLocalQueries = false;
       extraConfig = ''
         addn-hosts=/etc/dnsmasq-addn-hosts.txt
         # Bind to only one interface
