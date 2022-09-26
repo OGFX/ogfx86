@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     repo = "mod-host";
     rev = "prefix";
     # rev = "468c09ae37370139bd79d509b854889a2a567833";
-    sha256 = "sha256-y4qdGK0+tzoGr2h0jURgpck2jR/KaX1t5HDvE7exc+c=";
+    sha256 = "sha256-K422XnczXuvspREzOj9YGMD0YqKu2u2iGrlvKUnvFTw=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
