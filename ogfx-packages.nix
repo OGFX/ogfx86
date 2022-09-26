@@ -39,4 +39,9 @@ in
     mod-host ogfx-tools
     lilv lv2 plugin-torture lv2ls_cache
   ] ++ plugin_packages;
+
+  services.journald.extraConfig = ''
+    SystemMaxFileSize=20M
+    Storage=volatile
+  '';
 }
