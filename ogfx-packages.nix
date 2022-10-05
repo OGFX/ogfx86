@@ -44,4 +44,6 @@ in
     SystemMaxFileSize=20M
     Storage=volatile
   '';
+
+  systemd.network.wait-online.timeout = 0;
 }

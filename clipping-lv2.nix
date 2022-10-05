@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = pkgs.fetchgit {
     url = https://github.com/fps/clipping.lv2;
-    sha256 = "sha256-Ww/r4Q0O5EeAiTQ74sk3vZWX7yYLi6zyPCPA64JBKVs=";
+    sha256 = "sha256-B5V3F9r168j7Uw5fXFWXYgC8fYVeUhvmb7H1yq7lSLo=";
   };
 
   doCheck = true;
