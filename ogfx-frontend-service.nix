@@ -16,7 +16,7 @@
         LimitMEMLOCK = "infinity";
         KillMode = "mixed";
         KillSignal = "SIGINT";
-        TimeoutStopSec = 60;
+        TimeoutStopSec = 15;
       };
     };
   };
