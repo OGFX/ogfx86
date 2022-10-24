@@ -2,7 +2,8 @@
 let
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   plugin_packages = with pkgs; [
-	# mod-pitchshifter
+    rt-tests
+  	# mod-pitchshifter
     guitarix mod-utilities 
     state-variable-filter-lv2 clipping-lv2
     mda_lv2 swh_lv2 aether-lv2
