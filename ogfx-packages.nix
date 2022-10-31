@@ -46,9 +46,9 @@ in
     Storage=volatile
   '';
 
-  environment.variables = [
+  environment.variables = {
     LV2_PATH = plugin_packages_lv2_dirs;
-  ];
+  };
 
   systemd.network.wait-online.timeout = 0;
 }
