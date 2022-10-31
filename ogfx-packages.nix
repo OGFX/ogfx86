@@ -30,8 +30,8 @@ in
       clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
         mkdir $out
-	ls $LV2_PATH
-	LV2_PATH=${plugin_packages_lv2_dirs} ${self.ogfx-tools}/bin/ogfx_lv2ls > $out/cache.txt
+      	ls $LV2_PATH
+       	LV2_PATH=${plugin_packages_lv2_dirs} ${self.ogfx-tools}/bin/ogfx_lv2ls > $out/cache.txt
       '');
     })
   ];
@@ -45,6 +45,10 @@ in
     SystemMaxFileSize=20M
     Storage=volatile
   '';
+
+  environment.variables = [
+    LV2_PATH = plugin_packages_lv2_dirs;
+  ];
 
   systemd.network.wait-online.timeout = 0;
 }

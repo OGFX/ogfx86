@@ -1,4 +1,3 @@
-# { config, lib, pkgs, ... }:
 { config, lib, pkgs, ... }:
 {
   systemd.services = {
