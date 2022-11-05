@@ -6,7 +6,7 @@ let
   	# mod-pitchshifter
     guitarix mod-utilities 
     state-variable-filter-lv2 clipping-lv2
-    mda_lv2 swh_lv2 aether-lv2
+    mda_lv2 swh_lv2 aether-lv2 fatfrog
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
     rkrlv2 distrho bshapr bchoppr
     plujain-ramp mod-distortion x42-plugins
@@ -28,6 +28,7 @@ in
       ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});
       state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
+      fatfrog = (pkgs.callPackage ./fatfrog.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
         mkdir $out
       	ls $LV2_PATH
