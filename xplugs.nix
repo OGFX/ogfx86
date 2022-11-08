@@ -1,22 +1,21 @@
 { lib, stdenv, pkgs }:
 
 stdenv.mkDerivation rec {
-  pname = "fatfrog";
+  pname = "xplugs-lv2";
   version = "0.1";
-
-  # src = /home/fps/ogfx/mod-pitchshifter;
 
   src = pkgs.fetchFromGitHub {
     owner = "brummer10";
-    repo = "FatFrog";
-    rev = "3361dd312f0933c69397f156a62388ed2c411fe6";
+    repo = "XPlugs.lv2";
+    fetchSubmodules = true;
+    rev = "11a5624f7e799911e3c53ba809717a8423bc461f";
     # rev = "468d09ae37370139bd79d509b854889a2a567833";
-    sha256 = "sha256-ybHfRYlARsceAzx9N7uRUobKs0RexrMsqllyGc4qc+Q=";
+    sha256 = "sha256-aOtX8s9b3w0cywFy8DQn6AIvSvMsOwVMTHjARonZqgw=";
   };
 
   doCheck = true;
 
-  buildInputs =  with pkgs; [ pkg-config lv2 ]; 
+  buildInputs =  with pkgs; [ vim pkg-config lv2 cairo fluidsynth lilv libsndfile glib pcre2 xorg.libXdmcp ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
 
   makeFlags = [ "INSTALL_DIR=$(out)/lib/lv2" ];
