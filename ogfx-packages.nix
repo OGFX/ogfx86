@@ -4,7 +4,7 @@ let
   plugin_packages = with pkgs; [
     rt-tests
   	# mod-pitchshifter
-    guitarix mod-utilities 
+    guitarix mod-utilities  vintageac30-lv2
     state-variable-filter-lv2 clipping-lv2
     mda_lv2 swh_lv2 aether-lv2 xplugs-lv2
     gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
@@ -29,6 +29,7 @@ in
       state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
       xplugs-lv2 = (pkgs.callPackage ./xplugs.nix {});
+      vintageac30-lv2 = (pkgs.callPackage ./vintageac30.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
         mkdir $out
       	ls $LV2_PATH
