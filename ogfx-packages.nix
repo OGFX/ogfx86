@@ -14,7 +14,7 @@ let
     eq10q talentedhack artyFX fverb
     kapitonov-plugins-pack fomp molot-lite
     zam-plugins lsp-plugins calf gxmatcheq-lv2
-    tunefish ams-lv2
+    tunefish ams-lv2 relative_dynamics-lv2
   ];
   plugin_packages_lv2_dirs = lib.concatStrings (lib.intersperse ":" (lib.forEach plugin_packages (x: "${x}/lib/lv2")));
 in
@@ -28,6 +28,7 @@ in
       ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});
       state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
+      relative_dynamics-lv2 = (pkgs.callPackage ./relative_dynamics-lv2.nix {});
       xplugs-lv2 = (pkgs.callPackage ./xplugs.nix {});
       vintageac30-lv2 = (pkgs.callPackage ./vintageac30.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
