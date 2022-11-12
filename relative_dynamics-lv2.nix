@@ -8,7 +8,8 @@ stdenv.mkDerivation rec {
 
   src = pkgs.fetchgit {
     url = https://github.com/fps/relative_dynamics.lv2;
-    sha256 = "sha256-lsDNq5YqDbtiYz65Yoq9NIHP18QKzXCtiaGXo3Azpog=";
+    sha256 = "sha256-+jUDKGHs3IWhcwaBqfoP9D1mkN6/P2GKQTBuzuGOYHo=";
+    # sha256 = null;
   };
 
   doCheck = true;
