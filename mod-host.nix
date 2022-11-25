@@ -6,13 +6,18 @@ stdenv.mkDerivation rec {
 
   # src = /home/fps/ogfx/mod-host;
 
-  src = pkgs.fetchFromGitHub {
-    owner = "ogfx";
-    repo = "mod-host";
-    rev = "prefix";
-    # rev = "468c09ae37370139bd79d509b854889a2a567833";
-    sha256 = "sha256-PmSdHcgEpya3yLDy87/r2rYTHLum97dLShRm58CuBWU";
+  src = builtins.fetchGit {
+    url = https://github.com/OGFX/mod-host.git;
+    ref = "prefix";
   };
+
+  # src = pkgs.fetchFromGitHub {
+  #   owner = "ogfx";
+  #   repo = "mod-host";
+  #   rev = "prefix";
+  #   # rev = "468c09ae37370139bd79d509b854889a2a567833";
+  #   sha256 = "sha256-PmSdHcgEpya3yLDy87/r2rYTHLum97dLShRm58CuBWU";
+  # };
 
   makeFlags = [ "PREFIX=$(out)" ];
 

@@ -6,9 +6,10 @@ stdenv.mkDerivation rec {
 
   # src = /home/fps/ogfx/clipping.lv2;
 
-  src = pkgs.fetchgit {
+  src = builtins.fetchGit {
     url = https://github.com/fps/clipping.lv2;
-    sha256 = "sha256-8D3gjYH4S4z/5ixEf/Nm+fCbIe/zKhbsTWE7fkgDG9o=";
+    submodules = true;
+    # sha256 = "sha256-8D3gjYH4S4z/5ixEf/Nm+fCbIe/zKhbsTWE7fkgDG9o=";
   };
 
   doCheck = true;
