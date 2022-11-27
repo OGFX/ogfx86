@@ -6,9 +6,10 @@ stdenv.mkDerivation rec {
 
   # src = /home/fps/ogfx/clipping.lv2;
 
-  src = pkgs.fetchgit {
+  src = builtins.fetchGit {
     url = https://github.com/fps/relative_dynamics.lv2;
-    sha256 = "sha256-+jUDKGHs3IWhcwaBqfoP9D1mkN6/P2GKQTBuzuGOYHo=";
+    # sha256 = "sha256-+jUDKGHs3IWhcwaBqfoP9D1mkN6/P2GKQTBuzuGOYHo=";
+    ref = "master";
     # sha256 = null;
   };
 
