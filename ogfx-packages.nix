@@ -1,6 +1,5 @@
 { lib, pkgs, config, ... }:
 let
-  # make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   plugin_packages = with pkgs; [
     rt-tests
     guitarix 
