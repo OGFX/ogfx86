@@ -3,18 +3,43 @@ let
   # make-native = (x: x.override { stdenv = pkgs.withCFlags "-DOGFX_NATIVE -march=native -mtune=native -ffast-math -fno-finite-math-only -funroll-loops -fno-strict-aliasing" pkgs.stdenv;} );
   plugin_packages = with pkgs; [
     rt-tests
-  	# mod-pitchshifter
-    guitarix mod-utilities  vintageac30-lv2
-    state-variable-filter-lv2 clipping-lv2
-    mda_lv2 swh_lv2 aether-lv2 xplugs-lv2
-    gxplugins-lv2 gxmatcheq-lv2 airwindows-lv2
-    rkrlv2 distrho bshapr bchoppr
-    plujain-ramp mod-distortion x42-plugins
-    infamousPlugins mooSpace boops
-    eq10q talentedhack artyFX fverb
-    kapitonov-plugins-pack fomp molot-lite
-    zam-plugins lsp-plugins calf gxmatcheq-lv2
-    tunefish ams-lv2 relative_dynamics-lv2
+    guitarix 
+    mod-utilities  
+    vintageac30-lv2
+    state-variable-filter-lv2 
+    clipping-lv2
+    mda_lv2 
+    swh_lv2 
+    aether-lv2 
+    gxplugins-lv2 
+    gxmatcheq-lv2 
+    airwindows-lv2
+    rkrlv2 distrho 
+    bshapr 
+    bchoppr
+    plujain-ramp 
+    mod-distortion 
+    x42-plugins
+    infamousPlugins 
+    mooSpace 
+    boops
+    eq10q 
+    talentedhack 
+    artyFX 
+    fverb
+    kapitonov-plugins-pack 
+    fomp 
+    molot-lite
+    zam-plugins 
+    lsp-plugins 
+    calf 
+    gxmatcheq-lv2
+    ams-lv2 
+    relative_dynamics-lv2
+
+    # mod-pitchshifter # takes ages to build
+    # xplugs-lv2 # build fails
+    # tunefish # build fails
   ];
   plugin_packages_lv2_dirs = lib.concatStrings (lib.intersperse ":" (lib.forEach plugin_packages (x: "${x}/lib/lv2")));
 in
