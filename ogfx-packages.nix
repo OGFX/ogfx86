@@ -35,6 +35,7 @@ let
     gxmatcheq-lv2
     ams-lv2 
     relative_dynamics-lv2
+    bollie-delay
 
     # mod-pitchshifter # takes ages to build
     # xplugs-lv2 # build fails
@@ -47,6 +48,7 @@ in
     (self: super: {
       mod-host = (pkgs.callPackage ./mod-host.nix {});
       mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
+      bollie-delay = (pkgs.callPackage ./bolliedelay.nix {});
       mod-pitchshifter = (pkgs.callPackage ./mod-pitchshifter.nix {});
       ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
       ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});

@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = builtins.fetchGit {
     url = https://github.com/OGFX/mod-host.git;
-    ref = "prefix";
+    ref = "add_cc_tap_tempo";
   };
 
   # src = pkgs.fetchFromGitHub {
