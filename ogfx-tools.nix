@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs =  with pkgs; [ jack2 boost pkg-config lilv lv2 serd sord sratom nlohmann_json ]; 
+  buildInputs =  with pkgs; [ jack1 boost pkg-config lilv lv2 serd sord sratom nlohmann_json ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
 
   meta = with lib; {

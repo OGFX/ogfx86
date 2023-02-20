@@ -9,6 +9,7 @@ stdenv.mkDerivation rec {
   src = builtins.fetchGit {
     url = https://github.com/OGFX/mod-host.git;
     ref = "ogfx";
+    rev = "903328b0b41afb507aa37b443c4e0f416908b11b";
   };
 
   # src = pkgs.fetchFromGitHub {
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs =  with pkgs; [ pkg-config lv2 jack2 lilv serd sord sratom python3 readline ]; 
+  buildInputs =  with pkgs; [ pkg-config lv2 jack1 lilv serd sord sratom python3 readline ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
 
   checkPhase = "";

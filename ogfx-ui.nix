@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # };
 
   # Specify runtime dependencies for the package
-  propagatedBuildInputs = with pkgs; [ bottle jalv ogfx-tools mod-host mod-utilities ];
+  propagatedBuildInputs = with pkgs; [ bottle ogfx-tools mod-host mod-utilities ];
 
   doCheck = false;
 

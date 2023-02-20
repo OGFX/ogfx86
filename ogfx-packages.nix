@@ -2,7 +2,7 @@
 let
   plugin_packages = with pkgs; [
     rt-tests
-    guitarix 
+    # guitarix 
     mod-utilities  
     vintageac30-lv2
     state-variable-filter-lv2 
