@@ -46,17 +46,17 @@ in
 {
   nixpkgs.overlays = [
     (self: super: {
-      mod-host = (pkgs.callPackage ./mod-host.nix {});
-      mod-utilities = (pkgs.callPackage ./mod-utilities.nix {});
-      bollie-delay = (pkgs.callPackage ./bolliedelay.nix {});
-      mod-pitchshifter = (pkgs.callPackage ./mod-pitchshifter.nix {});
-      ogfx-tools = (pkgs.callPackage ./ogfx-tools.nix {});
-      ogfx-ui = (pkgs.python39Packages.callPackage ./ogfx-ui.nix {});
-      state-variable-filter-lv2 = (pkgs.callPackage ./state-variable-filter-lv2.nix {});
-      clipping-lv2 = (pkgs.callPackage ./clipping-lv2.nix {});
-      relative_dynamics-lv2 = (pkgs.callPackage ./relative_dynamics-lv2.nix {});
-      xplugs-lv2 = (pkgs.callPackage ./xplugs.nix {});
-      vintageac30-lv2 = (pkgs.callPackage ./vintageac30.nix {});
+      mod-host = (pkgs.callPackage ./pkgs/mod-host.nix {});
+      mod-utilities = (pkgs.callPackage ./pkgs/mmod-utilities.nix {});
+      bollie-delay = (pkgs.callPackage ./pkgs/mbolliedelay.nix {});
+      mod-pitchshifter = (pkgs.callPackage ./pkgs/mmod-pitchshifter.nix {});
+      ogfx-tools = (pkgs.callPackage ./pkgs/mogfx-tools.nix {});
+      ogfx-ui = (pkgs.python39Packages.callPackage ./pkgs/pkgs/mmogfx-ui.nix {});
+      state-variable-filter-lv2 = (pkgs.callPackage ./pkgs/mstate-variable-filter-lv2.nix {});
+      clipping-lv2 = (pkgs.callPackage ./pkgs/mclipping-lv2.nix {});
+      relative_dynamics-lv2 = (pkgs.callPackage ./pkgs/mrelative_dynamics-lv2.nix {});
+      xplugs-lv2 = (pkgs.callPackage ./pkgs/mxplugs.nix {});
+      vintageac30-lv2 = (pkgs.callPackage ./pkgs/mvintageac30.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
         mkdir $out
       	ls $LV2_PATH
