@@ -51,7 +51,7 @@ in
       bollie-delay = (pkgs.callPackage ./pkgs/bolliedelay.nix {});
       mod-pitchshifter = (pkgs.callPackage ./pkgs/mod-pitchshifter.nix {});
       ogfx-tools = (pkgs.callPackage ./pkgs/ogfx-tools.nix {});
-      ogfx-ui = (pkgs.python39Packages.callPackage ./pkgs/pkgs/mogfx-ui.nix {});
+      ogfx-ui = (pkgs.python39Packages.callPackage ./pkgs/ogfx-ui.nix {});
       state-variable-filter-lv2 = (pkgs.callPackage ./pkgs/state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./pkgs/clipping-lv2.nix {});
       relative_dynamics-lv2 = (pkgs.callPackage ./pkgs/relative_dynamics-lv2.nix {});
