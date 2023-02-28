@@ -19,7 +19,7 @@ let
     plujain-ramp 
     mod-distortion 
     x42-plugins
-    infamousPlugins 
+    # infamousPlugins 
     mooSpace 
     boops
     eq10q 
@@ -62,12 +62,14 @@ in
       	ls $LV2_PATH
        	LV2_PATH=${plugin_packages_lv2_dirs} ${self.ogfx-tools}/bin/ogfx_lv2ls > $out/cache.txt
       '');
+      ladspamm = (pkgs.callPackage ./pkgs/ladspamm.nix {});
     })
   ];
 
   environment.systemPackages = with pkgs; [
     mod-host ogfx-tools
-    lilv lv2 plugin-torture lv2ls_cache
+    lilv lv2 plugin-torture lv2ls_cache 
+    ladspamm
   ] ++ plugin_packages;
 
   services.journald.extraConfig = ''
