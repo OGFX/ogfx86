@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs =  with pkgs; [ pkg-config lv2 jack1 lilv serd sord sratom python3 readline ]; 
+  buildInputs =  with pkgs; [ pkg-config lv2 jack2 lilv serd sord sratom python3 readline ]; 
   # propagatedBuildInputs = with pkgs; [ lilv lv2 serd sord sratom];
 
   checkPhase = "";
