@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   src = builtins.fetchGit {
     url = https://github.com/OGFX/mod-host.git;
     ref = "ogfx";
-    rev = "903328b0b41afb507aa37b443c4e0f416908b11b";
+    rev = "95f2c282c01de8f99b03f4f002e086acf2e97d77";
   };
 
   # src = pkgs.fetchFromGitHub {

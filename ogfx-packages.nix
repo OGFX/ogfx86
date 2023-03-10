@@ -36,6 +36,7 @@ let
     ams-lv2 
     relative_dynamics-lv2
     bollie-delay
+    guitarix
 
     # mod-pitchshifter # takes ages to build
     # xplugs-lv2 # build fails
@@ -58,9 +59,10 @@ in
       xplugs-lv2 = (pkgs.callPackage ./pkgs/xplugs.nix {});
       vintageac30-lv2 = (pkgs.callPackage ./pkgs/vintageac30.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
-        mkdir $out
+        echo out: $out
+        mkdir -p $out/share/ogfx_lv2ls_cache
       	ls $LV2_PATH
-       	LV2_PATH=${plugin_packages_lv2_dirs} ${self.ogfx-tools}/bin/ogfx_lv2ls > $out/cache.txt
+       	LV2_PATH=${plugin_packages_lv2_dirs} ${self.ogfx-tools}/bin/ogfx_lv2ls > $out/share/ogfx_lv2ls_cache/cache.txt
       '');
       ladspamm = (pkgs.callPackage ./pkgs/ladspamm.nix {});
     })
