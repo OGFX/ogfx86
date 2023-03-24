@@ -2,7 +2,6 @@
 let
   plugin_packages = with pkgs; [
     rt-tests
-    # guitarix 
     mod-utilities  
     vintageac30-lv2
     state-variable-filter-lv2 
@@ -32,7 +31,6 @@ let
     zam-plugins 
     lsp-plugins 
     calf 
-    gxmatcheq-lv2
     ams-lv2 
     relative_dynamics-lv2
     bollie-delay

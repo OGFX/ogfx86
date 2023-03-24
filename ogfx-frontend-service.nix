@@ -25,7 +25,7 @@
         # Environment = "LV2_PATH=${config.environment.variables.LV2_PATH}";
         # ExecStart = "bash -c \"lv2ls\"";
         # ExecStart = "${pkgs.bash}/bin/bash -l -c \"jack_wait -w\"";
-        ExecStart = "${pkgs.bash}/bin/bash -l -c \"jack_wait -w && export LV2_PATH=${pkgs.mod-utilities}/lib/lv2:$LV2_PATH; exec ${pkgs.ogfx-ui}/bin/ogfx_frontend_server.py --log-level 5 --lv2-cache ${pkgs.lv2ls_cache}/cache.txt\"";
+        ExecStart = "${pkgs.bash}/bin/bash -l -c \"jack_wait -w && export LV2_PATH=${pkgs.mod-utilities}/lib/lv2:$LV2_PATH; exec ${pkgs.ogfx-ui}/bin/ogfx_frontend_server.py --log-level 5 --lv2-cache ${pkgs.lv2ls_cache}/share/ogfx_lv2ls_cache/cache.txt\"";
         LimitRTPRIO = 99;
         LimitMEMLOCK = "infinity";
         KillMode = "mixed";
