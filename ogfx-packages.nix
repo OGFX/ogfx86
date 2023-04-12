@@ -56,7 +56,7 @@ in
       relative_dynamics-lv2 = (pkgs.callPackage ./pkgs/relative_dynamics-lv2.nix {});
       xplugs-lv2 = (pkgs.callPackage ./pkgs/xplugs.nix {});
       vintageac30-lv2 = (pkgs.callPackage ./pkgs/vintageac30.nix {});
-      horst = (pkgs.python3Packages.callPackage ./pkgs/horst.nix {});
+      horsting = (pkgs.callPackage ./pkgs/horst.nix {});
       lv2ls_cache =  (pkgs.runCommand "lv2ls_cache" {} ''
         echo out: $out
         mkdir -p $out/share/ogfx_lv2ls_cache

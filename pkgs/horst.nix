@@ -1,7 +1,7 @@
 { lib, stdenv, pkgs, ... }:
 
 stdenv.mkDerivation rec {
-  pname = "horst";
+  pname = "horsting";
   version = "0.1";
 
   # If you have your sources locally, you can specify a path
