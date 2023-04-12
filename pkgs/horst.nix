@@ -5,7 +5,11 @@ stdenv.mkDerivation rec {
   version = "0.1";
 
   # If you have your sources locally, you can specify a path
-  src = /home/fps/src/projects/linux-audio/horst;
+  # src = /home/fps/src/projects/linux-audio/horst;
+  src = builtins.fetchGit {
+    url = "https://github.com/fps/horst";
+    ref = "master";
+  };
 
   # Pull source from a Git server. Optionally select a specific `ref` (e.g. branch),
   # or `rev` revision hash.
