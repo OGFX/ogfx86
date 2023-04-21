@@ -35,7 +35,7 @@ let
     relative_dynamics-lv2
     bollie-delay
     guitarix
-
+    neural-amp-modeler-lv2
     # mod-pitchshifter # takes ages to build
     # xplugs-lv2 # build fails
     # tunefish # build fails
@@ -45,6 +45,7 @@ in
 {
   nixpkgs.overlays = [
     (self: super: {
+      neural-amp-modeler-lv2 = (pkgs.callPackage ./pkgs/neural-amp-modeler-lv2.nix {});
       mod-host = (pkgs.callPackage ./pkgs/mod-host.nix {});
       mod-utilities = (pkgs.callPackage ./pkgs/mod-utilities.nix {});
       bollie-delay = (pkgs.callPackage ./pkgs/bolliedelay.nix {});
