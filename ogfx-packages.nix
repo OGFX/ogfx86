@@ -36,6 +36,7 @@ let
     bollie-delay
     guitarix
     neural-amp-modeler-lv2
+    melmatcheq-lv2
     # mod-pitchshifter # takes ages to build
     # xplugs-lv2 # build fails
     # tunefish # build fails
@@ -45,6 +46,7 @@ in
 {
   nixpkgs.overlays = [
     (self: super: {
+      melmatcheq-lv2 = (pkgs.callPackage ./pkgs/melmatcheq-lv2.nix {});
       neural-amp-modeler-lv2 = (pkgs.callPackage ./pkgs/neural-amp-modeler-lv2.nix {});
       mod-host = (pkgs.callPackage ./pkgs/mod-host.nix {});
       mod-utilities = (pkgs.callPackage ./pkgs/mod-utilities.nix {});
