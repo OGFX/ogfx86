@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  buildInputs =  with pkgs; [ lv2 fftwFloat libsndfile ]; 
+  buildInputs =  with pkgs; [ lv2 fftwFloat libsndfile pkg-config ]; 
   # propagatedBuildInputs = with pkgs; [ lv2 ];
 
   meta = with lib; {
