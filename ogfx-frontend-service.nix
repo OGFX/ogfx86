@@ -37,7 +37,7 @@
 
   users.users.ogfx = {
     isNormalUser = true;
-    extraGroups = [ "audio" "jackaudio" ];
+    extraGroups = [ "realtime" "jackaudio" ];
   };
 }
   
