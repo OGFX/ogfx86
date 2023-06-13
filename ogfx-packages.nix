@@ -33,6 +33,7 @@ let
     calf 
     ams-lv2 
     relative_dynamics-lv2
+    fps-plugins-lv2
     bollie-delay
     guitarix
     neural-amp-modeler-lv2
@@ -57,6 +58,7 @@ in
       state-variable-filter-lv2 = (pkgs.callPackage ./pkgs/state-variable-filter-lv2.nix {});
       clipping-lv2 = (pkgs.callPackage ./pkgs/clipping-lv2.nix {});
       relative_dynamics-lv2 = (pkgs.callPackage ./pkgs/relative_dynamics-lv2.nix {});
+      fps-plugins-lv2 = (pkgs.callPackage ./pkgs/fps-plugins-lv2.nix {});
       xplugs-lv2 = (pkgs.callPackage ./pkgs/xplugs.nix {});
       vintageac30-lv2 = (pkgs.callPackage ./pkgs/vintageac30.nix {});
       horsting = (pkgs.callPackage ./pkgs/horst.nix {});
